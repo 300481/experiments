@@ -1,7 +1,7 @@
 # TODO list
 
-* Let SSH run under different port [example implementation](https://gist.github.com/icedream/75135f63f433ec52d652c7245dd17e30)
-* Prepare and install K3S installation [example implementation](https://www.murillodigital.com/tech_talk/k3s_in_coreos/)
+* Let SSH run under different port [example implementation](https://gist.github.com/icedream/75135f63f433ec52d652c7245dd17e30) Issue #1 [Link](https://github.com/300481/experiments/issues/1)
+* Prepare and install K3S installation [example implementation](https://www.murillodigital.com/tech_talk/k3s_in_coreos/) Issue #2 [Link](https://github.com/300481/experiments/issues/2)
 * encrypted filesystem with remote key
   * [example documentation](https://coreos.github.io/butane/examples/#luks-encrypted-storage)
   * [Butane config documentation](https://coreos.github.io/butane/config-fcos-v1_3/)
