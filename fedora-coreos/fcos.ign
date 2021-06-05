@@ -11,5 +11,16 @@
         ]
       }
     ]
+  },
+  "storage": {
+    "files": [
+      {
+        "path": "/etc/ssh/sshd_config.d/20-set-port.conf",
+        "contents": {
+          "source": "data:,Port%2055522%0A"
+        },
+        "mode": 420
+      }
+    ]
   }
 }
