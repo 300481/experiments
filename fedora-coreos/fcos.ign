@@ -11,5 +11,33 @@
         ]
       }
     ]
+  },
+  "storage": {
+    "files": [
+      {
+        "path": "/etc/ssh/sshd_config.d/20-set-port.conf",
+        "contents": {
+          "source": "data:,Port%2055522%0A"
+        },
+        "mode": 420
+      },
+      {
+        "path": "/usr/local/bin/selinux-ssh-port.sh",
+        "contents": {
+          "compression": "gzip",
+          "source": "data:;base64,H4sIAAAAAAAC/3RTcW/bthP9n5/i/eSgvxiYosWuG8Bohw1rgnXAGqDJgAHbENDkSTqUIjXyZFfY+t0HKnbsrNs/Esm7e/ce33H2v2rDvtro1KIkNUMKQzS0RivSp3VVNZzkomFph82FCV3Fhmwk3VVXq8vlqn61rF8ul2RWC/tqtTBXi5cray+vaPm1mqkZ7ltOSCZyL4iDT4jctIIN1SES7u5+QKK4pYhNCJIw9Niyxt2YhDp7oWZ4J+CESH8MHMlCAjaUkbBrySN43JANUeP7EOn2DtpbmFb7hn0DaQl9iDL14QTHScjnSPAXe3p0YLcZ2NkEfQDkTjeEHUuLRJ32ecc+iXaOLM65hnaRtB2nSgELduwcfNhjQTea/TyL+K4WipBWH9OyhCdcCRh6q4Wwa9m0E+l0YK2dC7tH6Y8CnthnfTkpp6uU2oe8eLNarRYLNcOPQxIM6bGyIYFGM+iovRBZUNfLiLfBfKQIE7zQJ4HlqKbAg+X4pjg77z4KdT1KOy+UnXJrdnSMzAtlHGk/9Odz/KkArvErSovi7AmnwO8KmatXABA7lLF+lqCAmp+Kc+zY61+q/5HwWP1ZSdQ99mxw/cu7ezXD+9v7a5STJ2mIlDv0wbEZTYg0CLtUWtqSy/fsyVBKOo5oKdJXsGz9/wVCae+atPkfqQtbsspowTfPmb5+/fb69kbdfLj9CfU0RerDz+8xDt1hclCOXxDoR2mDL6fNf7B78WICmcTleVBTn2lCH7zuJkP6YDvt96P3xSU+8+MviGaH0l/OC5Uou6/ZU9x7uEfKE1qWfeQtO2rIoixjh98mG8otqq2OVRz8+rA4CZGYKpFjP3xan25OUvoYzHr6nhymMa3zZ39UnB0lZgnfFurzKd/jA5peealRCg7v4EFQ9hDTozg7nBXq7wAAAP//McnDv+8EAAA="
+        },
+        "mode": 484
+      }
+    ]
+  },
+  "systemd": {
+    "units": [
+      {
+        "contents": "[Unit]\nBefore=network-online.target\nConditionPathExists=!/var/lib/selinux-ssh-port\n\n[Service]\nType=oneshot\nExecStart=/usr/local/bin/selinux-ssh-port.sh\nExecStartPost=/usr/bin/touch /var/lib/selinux-ssh-port\nRemainAfterExit=yes\n\n[Install]\nWantedBy=multi-user.target",
+        "enabled": true,
+        "name": "adjust-selinux-for-ssh-port.service"
+      }
+    ]
   }
 }
