@@ -62,7 +62,7 @@ systemd:
       enabled: true
       contents: |
         [Unit]
-        Before=network-online.target
+        After=network-online.target
         ConditionPathExists=!/var/lib/selinux-ssh-port
 
         [Service]
