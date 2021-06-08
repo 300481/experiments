@@ -14,8 +14,11 @@ storage:
           Port 55522
   disks:
   - device: /dev/vda
-    wipe_table: false
+    wipe_table: true
     partitions:
+    - number: 4
+      label: root
+      size_mib: 0
     - size_mib: 1024
       label: data
   luks:

@@ -18,11 +18,16 @@
         "device": "/dev/vda",
         "partitions": [
           {
+            "label": "root",
+            "number": 4,
+            "sizeMiB": 0
+          },
+          {
             "label": "data",
             "sizeMiB": 1024
           }
         ],
-        "wipeTable": false
+        "wipeTable": true
       }
     ],
     "files": [
