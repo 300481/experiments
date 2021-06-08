@@ -22,7 +22,7 @@ storage:
     - name: data
       device: /dev/disk/by-partlabel/data
       key_file:
-        source: https://raw.githubusercontent.com/300481/experiments/master/fedora-coreos/TODO.md
+        source: https://www.dropbox.com/s/c077kup2id9l5dk/TODO.md?dl=0
   filesystems:
     - path: /var/lib/data
       device: /dev/mapper/data
