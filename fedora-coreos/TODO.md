@@ -13,3 +13,13 @@
 ## Closed
 
 * Let SSH run under different port [example implementation](https://gist.github.com/icedream/75135f63f433ec52d652c7245dd17e30) Issue #1 [Link](https://github.com/300481/experiments/issues/1)
+
+# Ignition creation
+
+```bash
+alias butane='podman run --rm --tty --interactive \
+              --security-opt label=disable        \
+              --volume ${PWD}:/pwd --workdir /pwd \
+              quay.io/coreos/butane:release'
+butane --pretty --strict fcos.bu > fcos.ign
+```
