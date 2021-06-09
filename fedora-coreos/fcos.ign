@@ -1,4 +1,4 @@
-{
+^[[A{
   "ignition": {
     "version": "3.2.0"
   },
@@ -21,7 +21,7 @@
             "label": "root",
             "number": 4,
             "resize": true,
-            "sizeMiB": 8192
+            "sizeMiB": 10240
           },
           {
             "label": "data",
