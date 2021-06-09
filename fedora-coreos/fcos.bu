@@ -17,21 +17,24 @@ storage:
     wipe_table: false
     partitions:
     - label: BIOS-BOOT
+      size_mib: 1
     - label: EFI-SYSTEM
+      size_mib: 127
     - label: boot
+      size_mib: 384
     - label: data
       size_mib: 1024
     - label: root
       size_mib: 0
       resize: true
-  luks:
-    - name: data
-      device: /dev/disk/by-partlabel/data
-      key_file:
-        source: https://raw.githubusercontent.com/300481/experiments/master/fedora-coreos/TODO.md
-  filesystems:
-    - path: /var/lib/data
-      device: /dev/mapper/data
-      format: xfs
-      label: DATA
-      with_mount_unit: true
+#  luks:
+#    - name: data
+#      device: /dev/disk/by-partlabel/data
+#      key_file:
+#        source: https://raw.githubusercontent.com/300481/experiments/master/fedora-coreos/TODO.md
+#  filesystems:
+#    - path: /var/lib/data
+#      device: /dev/mapper/data
+#      format: xfs
+#      label: DATA
+#      with_mount_unit: true
