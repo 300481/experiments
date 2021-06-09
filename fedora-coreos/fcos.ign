@@ -20,11 +20,11 @@
           {
             "label": "root",
             "number": 4,
+            "resize": true,
             "sizeMiB": 8192
           },
           {
             "label": "data",
-            "resize": true,
             "sizeMiB": 0
           }
         ],

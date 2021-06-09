@@ -19,9 +19,9 @@ storage:
     - label: root
       number: 4
       size_mib: 8192
+      resize: true
     - label: data
       size_mib: 0
-      resize: true
 #  luks:
 #    - name: data
 #      device: /dev/disk/by-partlabel/data
