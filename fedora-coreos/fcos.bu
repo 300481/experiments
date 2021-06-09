@@ -22,14 +22,9 @@ storage:
       resize: true
     - label: data
       size_mib: 0
-  luks:
-    - name: data
-      device: /dev/disk/by-partlabel/data
-      key_file:
-        source: https://raw.githubusercontent.com/300481/experiments/master/fedora-coreos/TODO.md
   filesystems:
     - path: /var/lib/data
-      device: /dev/mapper/data
+      device: /dev/disk/by-partlabel/data
       format: xfs
       label: DATA
       with_mount_unit: true
