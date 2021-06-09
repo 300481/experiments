@@ -18,23 +18,12 @@
         "device": "/dev/vda",
         "partitions": [
           {
-            "label": "BIOS-BOOT",
-            "sizeMiB": 1
-          },
-          {
-            "label": "EFI-SYSTEM",
-            "sizeMiB": 127
-          },
-          {
-            "label": "boot",
-            "sizeMiB": 384
+            "label": "root",
+            "number": 4,
+            "sizeMiB": 8192
           },
           {
             "label": "data",
-            "sizeMiB": 1024
-          },
-          {
-            "label": "root",
             "resize": true,
             "sizeMiB": 0
           }
