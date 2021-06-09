@@ -19,6 +19,7 @@ storage:
     - number: 4
       label: root
       size_mib: 0
+      resize: true
     - size_mib: 1024
       label: data
   luks:
