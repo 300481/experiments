@@ -18,7 +18,7 @@ storage:
     partitions:
     - number: 4
       label: root
-      size_mib: 0
+      size_mib: 8192
       resize: true
     - size_mib: 1024
       label: data

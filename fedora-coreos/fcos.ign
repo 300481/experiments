@@ -21,7 +21,7 @@
             "label": "root",
             "number": 4,
             "resize": true,
-            "sizeMiB": 0
+            "sizeMiB": 8192
           },
           {
             "label": "data",
