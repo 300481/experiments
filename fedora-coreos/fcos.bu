@@ -16,12 +16,14 @@ storage:
   - device: /dev/vda
     wipe_table: false
     partitions:
-    - number: 4
-      label: root
+    - label: BIOS-BOOT
+    - label: EFI-SYSTEM
+    - label: boot
+    - label: data
+      size_mib: 1024
+    - label: root
       size_mib: 0
       resize: true
-    - size_mib: 1024
-      label: data
   luks:
     - name: data
       device: /dev/disk/by-partlabel/data
