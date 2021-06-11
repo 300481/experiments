@@ -82,7 +82,7 @@
         "name": "datacrypt.service"
       },
       {
-        "contents": "[Unit]\nAfter=network-online.target\nWants=network-online.target\nBefore=systemd-user-sessions.service\nOnFailure=emergency.target\nOnFailureJobMode=replace-irreversibly\nConditionPathExists=!/var/lib/k3s-installed\n[Service]\nRemainAfterExit=yes\nType=oneshot\nExecStart=/usr/local/bin/run-k3s-installer\nExecStartPost=/usr/bin/touch /var/lib/k3s-installed\nStandardOutput=kmsg+console\nStandardError=kmsg+console\n[Install]\nWantedBy=multi-user.target\n",
+        "contents": "[Unit]\nAfter=network-online.target\nBefore=systemd-user-sessions.service\nConditionPathExists=!/var/lib/k3s-installed\n[Service]\nRemainAfterExit=yes\nType=oneshot\nExecStart=/usr/local/bin/run-k3s-installer\nExecStartPost=/usr/bin/touch /var/lib/k3s-installed\nStandardOutput=kmsg+console\nStandardError=kmsg+console\n[Install]\nWantedBy=multi-user.target\n",
         "enabled": true,
         "name": "run-k3s-installer.service"
       }

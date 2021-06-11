@@ -35,10 +35,7 @@ systemd:
       contents: |
         [Unit]
         After=network-online.target
-        Wants=network-online.target
         Before=systemd-user-sessions.service
-        OnFailure=emergency.target
-        OnFailureJobMode=replace-irreversibly
         ConditionPathExists=!/var/lib/k3s-installed
         [Service]
         RemainAfterExit=yes
