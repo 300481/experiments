@@ -12,6 +12,14 @@ storage:
       contents:
         inline: |
           Port 55522
+    - path: /usr/local/bin/encryption-start.sh
+      mode: 0755
+      contents:
+        source: https://raw.githubusercontent.com/300481/datacrypt/0.1.2/files/startscripts/encryption.sh
+    - path: /usr/local/bin/encryption-stop.sh
+      mode: 0755
+      contents:
+        source: https://raw.githubusercontent.com/300481/datacrypt/0.1.2/files/stopscripts/shutdown.sh
 #  disks:
 #  - device: /dev/vda
 #    wipe_table: false

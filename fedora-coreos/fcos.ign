@@ -20,6 +20,20 @@
           "source": "data:,Port%2055522%0A"
         },
         "mode": 420
+      },
+      {
+        "path": "/usr/local/bin/encryption-start.sh",
+        "contents": {
+          "source": "https://raw.githubusercontent.com/300481/datacrypt/0.1.2/files/startscripts/encryption.sh"
+        },
+        "mode": 493
+      },
+      {
+        "path": "/usr/local/bin/encryption-stop.sh",
+        "contents": {
+          "source": "https://raw.githubusercontent.com/300481/datacrypt/0.1.2/files/stopscripts/shutdown.sh"
+        },
+        "mode": 493
       }
     ]
   }
