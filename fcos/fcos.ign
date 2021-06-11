@@ -34,6 +34,19 @@
           "source": "https://raw.githubusercontent.com/300481/datacrypt/fcos-0.2.0/files/stopscripts/shutdown.sh"
         },
         "mode": 493
+      },
+      {
+        "path": "/etc/zincati/config.d/51-rollout-wariness.toml",
+        "contents": {
+          "source": "data:,%5Bidentity%5D%0Arollout_wariness%20%3D%200.3%0A"
+        }
+      },
+      {
+        "path": "/etc/zincati/config.d/55-updates-strategy.toml",
+        "contents": {
+          "compression": "gzip",
+          "source": "data:;base64,H4sIAAAAAAAC/2SOsQrCQAyG93uKI7PUc3EQugi6OSk4lKMcXmgDba5cc5T69JJCJ6ePJD/5/qZMMQjO3sySg2C32trChJlSpA+Y/V7tK2+ERmy/iVGTt5LThMcr5oEYTPOXrxbimBbvTQzrbGvbWHgkhoOFV0HFG+M29UVxz6R4BtlQGKx2C1laFavTnS7OgRmQO+nbkbgI6uez+wUAAP//GSxrNM4AAAA="
+        }
       }
     ]
   },
