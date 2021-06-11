@@ -12,19 +12,19 @@ storage:
       contents:
         inline: |
           Port 55522
-  disks:
-  - device: /dev/vda
-    wipe_table: false
-    partitions:
-    - label: root
-      number: 4
-      size_mib: 10240
-      resize: true
-    - label: data
-      size_mib: 0
-  filesystems:
-    - path: /var/mnt
-      device: /dev/disk/by-partlabel/data
-      format: xfs
-      label: DATA
-      with_mount_unit: true
+#  disks:
+#  - device: /dev/vda
+#    wipe_table: false
+#    partitions:
+#    - label: root
+#      number: 4
+#      size_mib: 10240
+#      resize: true
+#    - label: data
+#      size_mib: 0
+#  filesystems:
+#    - path: /var/mnt
+#      device: /dev/disk/by-partlabel/data
+#      format: xfs
+#      label: DATA
+#      with_mount_unit: true
