@@ -33,11 +33,11 @@ storage:
     - path: /usr/local/bin/encryption-start.sh
       mode: 0755
       contents:
-        source: https://raw.githubusercontent.com/300481/datacrypt/0.1.2/files/startscripts/encryption.sh
+        source: https://raw.githubusercontent.com/300481/datacrypt/fcos-0.2.0/files/startscripts/encryption.sh
     - path: /usr/local/bin/encryption-stop.sh
       mode: 0755
       contents:
-        source: https://raw.githubusercontent.com/300481/datacrypt/0.1.2/files/stopscripts/shutdown.sh
+        source: https://raw.githubusercontent.com/300481/datacrypt/fcos-0.2.0/files/stopscripts/shutdown.sh
 #  disks:
 #  - device: /dev/vda
 #    wipe_table: false
