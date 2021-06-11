@@ -40,7 +40,7 @@
   "systemd": {
     "units": [
       {
-        "contents": "[Unit]\nDescription=Encryption at rest\nBefore=systemd-user-sessions.service\nAfter=network-online.target\n\n[Service]\nType=exec\nEnvironment=CRYPT_KEY_URL='https://raw.githubusercontent.com/300481/datacrypt/0.1.2/README.md' CRYPT_CONTAINER_SIZE_PERCENTAGE='50'\nExecStart=/usr/bin/tail -f /dev/null\nExecStop=/usr/bin/touch /var/lib/encrypt-stopped\n\n[Install]\nWantedBy=multi-user.target\n",
+        "contents": "[Unit]\nDescription=Encryption at rest\nBefore=systemd-user-sessions.service\nAfter=network-online.target\n\n[Service]\nType=exec\nEnvironment=CRYPT_KEY_URL='https://raw.githubusercontent.com/300481/datacrypt/0.1.2/README.md' CRYPT_CONTAINER_SIZE_PERCENTAGE='80'\nExecStart=/usr/local/bin/encryption-start.sh\nExecStop=/usr/local/bin/encryption-stop.sh\n\n[Install]\nWantedBy=multi-user.target\n",
         "enabled": true,
         "name": "datacrypt.service"
       }
