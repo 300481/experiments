@@ -38,19 +38,3 @@ storage:
       mode: 0755
       contents:
         source: https://raw.githubusercontent.com/300481/datacrypt/fcos-0.2.0/files/stopscripts/shutdown.sh
-#  disks:
-#  - device: /dev/vda
-#    wipe_table: false
-#    partitions:
-#    - label: root
-#      number: 4
-#      size_mib: 10240
-#      resize: true
-#    - label: data
-#      size_mib: 0
-#  filesystems:
-#    - path: /var/mnt
-#      device: /dev/disk/by-partlabel/data
-#      format: xfs
-#      label: DATA
-#      with_mount_unit: true
