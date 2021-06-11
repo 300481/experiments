@@ -15,6 +15,13 @@
   "storage": {
     "files": [
       {
+        "path": "/etc/hostname",
+        "contents": {
+          "source": "data:,fcos%0A"
+        },
+        "mode": 420
+      },
+      {
         "path": "/etc/ssh/sshd_config.d/20-set-port.conf",
         "contents": {
           "source": "data:,Port%2055522%0A"
@@ -45,17 +52,39 @@
         "path": "/etc/zincati/config.d/55-updates-strategy.toml",
         "contents": {
           "compression": "gzip",
-          "source": "data:;base64,H4sIAAAAAAAC/2SOsQrCQAyG93uKI7PUc3EQugi6OSk4lKMcXmgDba5cc5T69JJCJ6ePJD/5/qZMMQjO3sySg2C32trChJlSpA+Y/V7tK2+ERmy/iVGTt5LThMcr5oEYTPOXrxbimBbvTQzrbGvbWHgkhoOFV0HFG+M29UVxz6R4BtlQGKx2C1laFavTnS7OgRmQO+nbkbgI6uez+wUAAP//GSxrNM4AAAA="
+          "source": "data:;base64,H4sIAAAAAAAC/2SOsQrCQAyG93uKI7PUc3EQugi6OSk4lKMcXmgDba5cc5T69JJCJ6ePJD/5/qZMMQjO3sySg2C32trChJlSpA+Y/V7tK2+ERmy/iVGTt5LThMcr5oEYTPOXrxbimBbvTQzrbGvbWHgkhoOFV0HFG+M29UVxz6R4BtlQGKx2C1laFavTnS7OgRmQO+nbkbgI6uezM78AAAD//3/FiFbPAAAA"
         }
+      },
+      {
+        "path": "/usr/local/bin/run-k3s-installer",
+        "contents": {
+          "compression": "gzip",
+          "source": "data:;base64,H4sIAAAAAAAC/2zNsUrEQBDG8T5PMUasZLPmrhOuUElxGE4wInbHJDe5XbK3G2Zmo4UPLwELC6sP/sXvu76yWdj2PlqKC4gr6GtOrLA/dG8PbXt83nbH5qN52pVgzMkL9oFAiBc/UOj/NGWk0U9roRFzUBPSgMGIJsYzmRnVgb1EtSdULP/7eW9eu/3LYVcudbWpq/p22kpdFkPmAEbGFpzqLPfWMn5WZ68u91mIhxSVolZDuthpK8andewvcrN5XBnroyiGUImDbxAHpmDSzBHuip8AAAD//zfCtocFAQAA"
+        },
+        "mode": 493
       }
     ]
   },
   "systemd": {
     "units": [
       {
+        "dropins": [
+          {
+            "contents": "[Service]\nExecStart=\nExecStart=-/usr/sbin/agetty --autologin core --noclear %I $TERM\n",
+            "name": "autologin-core.conf"
+          }
+        ],
+        "name": "getty@tty1.service"
+      },
+      {
         "contents": "[Unit]\nDescription=Encryption at rest\nBefore=systemd-user-sessions.service\nAfter=network-online.target\n\n[Service]\nType=exec\nEnvironment=CRYPT_KEY_URL='https://raw.githubusercontent.com/300481/datacrypt/fcos-0.2.0/README.md' CRYPT_CONTAINER_SIZE_PERCENTAGE='80'\nExecStart=/usr/local/bin/encryption-start.sh\nExecStop=/usr/local/bin/encryption-stop.sh\n\n[Install]\nWantedBy=multi-user.target\n",
         "enabled": true,
         "name": "datacrypt.service"
+      },
+      {
+        "contents": "[Unit]\nAfter=network-online.target\nWants=network-online.target\nBefore=systemd-user-sessions.service\nOnFailure=emergency.target\nOnFailureJobMode=replace-irreversibly\nConditionPathExists=!/var/lib/k3s-installed\n[Service]\nRemainAfterExit=yes\nType=oneshot\nExecStart=/usr/local/bin/run-k3s-installer\nExecStartPost=/usr/bin/touch /var/lib/k3s-installed\nStandardOutput=kmsg+console\nStandardError=kmsg+console\n[Install]\nWantedBy=multi-user.target\n",
+        "enabled": true,
+        "name": "run-k3s-installer.service"
       }
     ]
   }
