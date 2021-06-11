@@ -1,0 +1,49 @@
+{
+  "ignition": {
+    "version": "3.2.0"
+  },
+  "passwd": {
+    "users": [
+      {
+        "name": "core",
+        "sshAuthorizedKeys": [
+          "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAmErYAR6kJheLcFGU4w5lW2g88u+HdU5jAbaHAzl5QpCThcWWpsr1sNwvFvwPvugwLJ2dXHu3MFMgHesa1R421GAShTFoclMgR+PNM3wDHfYow+K3X2Wnj4QZ2Z6p4GK+OsDObM63irQONsrNqdZ6eMyqUjr9tSE4on9td2Sohb4DCCxEGYltJCVS+jKmnSAK72aSYOY52ey74wSFE1NQ19l7f8o3858YTrNCUBCeV7Ob+pBYU/6dkrz3/dd5fA/OkpgB/RC47/LKhO///ScrpuLfj3ieROMeS3lvL6cP6clq5UzOHbG8q7v3qMsePVzft2hJGojzu5DBhkaPTo/Euw=="
+        ]
+      }
+    ]
+  },
+  "storage": {
+    "files": [
+      {
+        "path": "/etc/ssh/sshd_config.d/20-set-port.conf",
+        "contents": {
+          "source": "data:,Port%2055522%0A"
+        },
+        "mode": 420
+      },
+      {
+        "path": "/usr/local/bin/encryption-start.sh",
+        "contents": {
+          "source": "https://raw.githubusercontent.com/300481/datacrypt/fcos-0.2.0/files/startscripts/encryption.sh"
+        },
+        "mode": 493
+      },
+      {
+        "path": "/usr/local/bin/encryption-stop.sh",
+        "contents": {
+          "source": "https://raw.githubusercontent.com/300481/datacrypt/fcos-0.2.0/files/stopscripts/shutdown.sh"
+        },
+        "mode": 493
+      }
+    ]
+  },
+  "systemd": {
+    "units": [
+      {
+        "contents": "[Unit]\nDescription=Encryption at rest\nBefore=systemd-user-sessions.service\nAfter=network-online.target\n\n[Service]\nType=exec\nEnvironment=CRYPT_KEY_URL='https://raw.githubusercontent.com/300481/datacrypt/fcos-0.2.0/README.md' CRYPT_CONTAINER_SIZE_PERCENTAGE='80'\nExecStart=/usr/local/bin/encryption-start.sh\nExecStop=/usr/local/bin/encryption-stop.sh\n\n[Install]\nWantedBy=multi-user.target\n",
+        "enabled": true,
+        "name": "datacrypt.service"
+      }
+    ]
+  }
+}
