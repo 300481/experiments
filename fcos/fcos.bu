@@ -17,7 +17,7 @@ systemd:
 
         [Service]
         Type=exec
-        Environment=CRYPT_KEY_URL='https://raw.githubusercontent.com/300481/datacrypt/0.1.2/README.md' CRYPT_CONTAINER_SIZE_PERCENTAGE='80'
+        Environment=CRYPT_KEY_URL='https://raw.githubusercontent.com/300481/datacrypt/fcos-0.2.0/README.md' CRYPT_CONTAINER_SIZE_PERCENTAGE='80'
         ExecStart=/usr/local/bin/encryption-start.sh
         ExecStop=/usr/local/bin/encryption-stop.sh
 
