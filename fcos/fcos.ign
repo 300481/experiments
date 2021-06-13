@@ -53,7 +53,7 @@
         "path": "/usr/local/bin/run-k3s-installer",
         "contents": {
           "compression": "gzip",
-          "source": "data:;base64,H4sIAAAAAAAC/2zNQUuEQBjG8bufYjI6xTi4Lh0CD+1mIWsKWdFNRvd1Z3B2RuZ9xzr04UOI6NDpgYc//C4vREAvem0F2IWhiuBzdp5YWbcvd1XVHbK2K96LfR4zzo8aZW+AIfhFD2D6Px95CaOe1gdGGQxx4wZpOJLz8gR8lqSYOFsSR0ky/s95K57bsqnzeEmTTZqk11OG6W+5FofXXbFv6ofysXtq7os8vtlu42gI3jCOY8UU0Yy3Qnj5kZw0qdAHBD84S2ApGdxZTBly7dYRP8rVZrc6QlskaUyCin0xVIxH3wEAAP//efBTRh0BAAA="
+          "source": "data:;base64,H4sIAAAAAAAC/2yOQUvDMBiG7/sVnxVPkmTp5lBhBzerjM0VrIq3knbpEpolJd/X6sEfLwVBD55eeHjgec/PRI9RVNYL7QdAM9GfXYgEm33xcrfbldtZUWbv2XqZAGMHi6pyGlDHwdbaVX8YRaUb245EN6p3xFyolWNIIaqjZp0iA+LkSRwUKWCMHDJUHuRNyuXimsvplKdXMvnvwVv2XGzy/TIZJE8ll5ftDH/N0di+rrJ1vn/YPJZP+X22TBbzeTKp++iAYbMDQ9ThrRBRffCjJdNXPepYB0/aE6/DSbQzZDaMI34qF+lq7AjrkZRzHA18ARpgk+8AAAD//z4X4CE3AQAA"
         },
         "mode": 493
       }
