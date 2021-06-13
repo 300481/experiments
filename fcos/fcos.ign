@@ -43,19 +43,6 @@
         "mode": 493
       },
       {
-        "path": "/etc/zincati/config.d/51-rollout-wariness.toml",
-        "contents": {
-          "source": "data:,%5Bidentity%5D%0Arollout_wariness%20%3D%200.3%0A"
-        }
-      },
-      {
-        "path": "/etc/zincati/config.d/55-updates-strategy.toml",
-        "contents": {
-          "compression": "gzip",
-          "source": "data:;base64,H4sIAAAAAAAC/2SOsQrCQAyG93uKI7PUc3EQugi6OSk4lKMcXmgDba5cc5T69JJCJ6ePJD/5/qZMMQjO3sySg2C32trChJlSpA+Y/V7tK2+ERmy/iVGTt5LThMcr5oEYTPOXrxbimBbvTQzrbGvbWHgkhoOFV0HFG+M29UVxz6R4BtlQGKx2C1laFavTnS7OgRmQO+nbkbgI6uezM78AAAD//3/FiFbPAAAA"
-        }
-      },
-      {
         "path": "/usr/local/bin/run-k3s-selinux-installer",
         "contents": {
           "source": "data:,%23!%2Fusr%2Fbin%2Fenv%20sh%0Arpm-ostree%20install%20https%3A%2F%2Fgithub.com%2Fk3s-io%2Fk3s-selinux%2Freleases%2Fdownload%2Fv0.3.stable.0%2Fk3s-selinux-0.3-0.el7.noarch.rpm%0Areturn%200%0A"
@@ -74,15 +61,6 @@
   },
   "systemd": {
     "units": [
-      {
-        "dropins": [
-          {
-            "contents": "[Service]\nExecStart=\nExecStart=-/usr/sbin/agetty --autologin core --noclear %I $TERM\n",
-            "name": "autologin-core.conf"
-          }
-        ],
-        "name": "getty@tty1.service"
-      },
       {
         "contents": "[Unit]\nDescription=Encryption at rest\nBefore=systemd-user-sessions.service\nAfter=network-online.target\n[Service]\nType=exec\nEnvironment=CRYPT_KEY_URL='https://raw.githubusercontent.com/300481/datacrypt/fcos-0.2.0/README.md' CRYPT_CONTAINER_SIZE_PERCENTAGE='80'\nExecStart=/usr/local/bin/encryption-start.sh\nExecStop=/usr/local/bin/encryption-stop.sh\n[Install]\nWantedBy=multi-user.target\n",
         "enabled": true,
