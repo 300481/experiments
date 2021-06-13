@@ -45,7 +45,7 @@
       {
         "path": "/usr/local/bin/run-k3s-selinux-installer",
         "contents": {
-          "source": "data:,%23!%2Fusr%2Fbin%2Fenv%20sh%0Arpm-ostree%20install%20https%3A%2F%2Fgithub.com%2Fk3s-io%2Fk3s-selinux%2Freleases%2Fdownload%2Fv0.3.stable.0%2Fk3s-selinux-0.3-0.el7.noarch.rpm%0Areturn%200%0A"
+          "source": "data:,%23!%2Fusr%2Fbin%2Fenv%20sh%0Arpm-ostree%20install%20https%3A%2F%2Fgithub.com%2Fk3s-io%2Fk3s-selinux%2Freleases%2Fdownload%2Fv0.3.stable.0%2Fk3s-selinux-0.3-0.el7.noarch.rpm%0A"
         },
         "mode": 493
       },
@@ -53,7 +53,7 @@
         "path": "/usr/local/bin/run-k3s-installer",
         "contents": {
           "compression": "gzip",
-          "source": "data:;base64,H4sIAAAAAAAC/2zNwUrsMBTG8X2fIrcXV5LGTgcXQhfOWKVMbcGquCtp53QSmklKzkl14cNLQcSFqw8+/vD7/08E9KLXVoBdGKoIPmbniZV1+3xbVd0ha7virdjnMeP8qFH2BhiCX/QApv/1kZcw6ml9YJTBEDdukIYjOS9PwGdJiomzJXGUJOO/nNfiqS2bOo+XNNmkSXo5ZZj+lGtxeNkV+6a+Lx+6x+auyOPr7TaOhuAN4zhWTBHNeCOEl+/JSZMKfUDwg7MElpLBncWUIdduHfGtXGx2qyO0RZLGJKjYJ0PFeOSBgrfsKvoKAAD//2Xo/dQmAQAA"
+          "source": "data:;base64,H4sIAAAAAAAC/2zNQUuEQBjG8bufYjI6xTi4Lh0CD+1mIWsKWdFNRvd1Z3B2RuZ9xzr04UOI6NDpgYc//C4vREAvem0F2IWhiuBzdp5YWbcvd1XVHbK2K96LfR4zzo8aZW+AIfhFD2D6Px95CaOe1gdGGQxx4wZpOJLz8gR8lqSYOFsSR0ky/s95K57bsqnzeEmTTZqk11OG6W+5FofXXbFv6ofysXtq7os8vtlu42gI3jCOY8UU0Yy3Qnj5kZw0qdAHBD84S2ApGdxZTBly7dYRP8rVZrc6QlskaUyCin0xVIxH3wEAAP//efBTRh0BAAA="
         },
         "mode": 493
       }

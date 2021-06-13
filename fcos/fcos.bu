@@ -103,7 +103,6 @@ storage:
         inline: |
           #!/usr/bin/env sh
           rpm-ostree install https://github.com/k3s-io/k3s-selinux/releases/download/v0.3.stable.0/k3s-selinux-0.3-0.el7.noarch.rpm
-          return 0
     - path: /usr/local/bin/run-k3s-installer
       mode: 0755
       contents:
@@ -113,4 +112,3 @@ storage:
           export INSTALL_K3S_VERSION="v1.21.1+k3s1"
           export K3S_KUBECONFIG_MODE="644"
           curl -sfL https://raw.githubusercontent.com/k3s-io/k3s/v1.21.1%2Bk3s1/install.sh | sh -
-          return 0
