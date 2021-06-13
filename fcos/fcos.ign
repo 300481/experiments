@@ -90,12 +90,12 @@
       },
       {
         "contents": "[Unit]\nAfter=network-online.target\nWants=network-online.target\nBefore=systemd-user-sessions.service\nOnFailure=emergency.target\nOnFailureJobMode=replace-irreversibly\nConditionPathExists=!/var/lib/k3s-selinux-installed\n[Service]\nRemainAfterExit=yes\nType=oneshot\nExecStart=/usr/local/bin/run-k3s-selinux-installer\nExecStartPost=/usr/bin/touch /var/lib/k3s-selinux-installed\nExecStartPost=/usr/bin/systemctl --no-block reboot\nStandardOutput=kmsg+console\nStandardError=kmsg+console\n[Install]\nWantedBy=multi-user.target\n",
-        "enabled": true,
+        "enabled": false,
         "name": "run-k3s-selinux-installer.service"
       },
       {
         "contents": "[Unit]\nAfter=network-online.target\nWants=network-online.target\nBefore=systemd-user-sessions.service\nOnFailure=emergency.target\nOnFailureJobMode=replace-irreversibly\nConditionPathExists=/var/lib/k3s-selinux-installed\nConditionPathExists=!/var/lib/k3s-installed\n[Service]\nRemainAfterExit=yes\nType=oneshot\nExecStart=/usr/local/bin/run-k3s-installer\nExecStartPost=/usr/bin/touch /var/lib/k3s-installed\nStandardOutput=kmsg+console\nStandardError=kmsg+console\n[Install]\nWantedBy=multi-user.target\n",
-        "enabled": true,
+        "enabled": false,
         "name": "run-k3s-installer.service"
       }
     ]

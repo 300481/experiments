@@ -29,7 +29,7 @@ systemd:
         [Install]
         WantedBy=multi-user.target
     - name: run-k3s-selinux-installer.service
-      enabled: true
+      enabled: false
       contents: |
         [Unit]
         After=network-online.target
@@ -49,7 +49,7 @@ systemd:
         [Install]
         WantedBy=multi-user.target
     - name: run-k3s-installer.service
-      enabled: true
+      enabled: false
       contents: |
         [Unit]
         After=network-online.target
