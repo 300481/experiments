@@ -56,10 +56,17 @@
         }
       },
       {
+        "path": "/usr/local/bin/run-k3s-selinux-installer",
+        "contents": {
+          "source": "data:,%23!%2Fusr%2Fbin%2Fenv%20sh%0Arpm-ostree%20install%20https%3A%2F%2Fgithub.com%2Fk3s-io%2Fk3s-selinux%2Freleases%2Fdownload%2Fv0.3.stable.0%2Fk3s-selinux-0.3-0.el7.noarch.rpm%0Areturn%200%0A"
+        },
+        "mode": 493
+      },
+      {
         "path": "/usr/local/bin/run-k3s-installer",
         "contents": {
           "compression": "gzip",
-          "source": "data:;base64,H4sIAAAAAAAC/2zNsUrEQBDG8T5PMUasZLPmrhOuUElxGE4wInbHJDe5XbK3G2Zmo4UPLwELC6sP/sXvu76yWdj2PlqKC4gr6GtOrLA/dG8PbXt83nbH5qN52pVgzMkL9oFAiBc/UOj/NGWk0U9roRFzUBPSgMGIJsYzmRnVgb1EtSdULP/7eW9eu/3LYVcudbWpq/p22kpdFkPmAEbGFpzqLPfWMn5WZ68u91mIhxSVolZDuthpK8andewvcrN5XBnroyiGUImDbxAHpmDSzBHuip8AAAD//zfCtocFAQAA"
+          "source": "data:;base64,H4sIAAAAAAAC/2zNwUrsMBTG8X2fIrcXV5LGTgcXQhfOWKVMbcGquCtp53QSmklKzkl14cNLQcSFqw8+/vD7/08E9KLXVoBdGKoIPmbniZV1+3xbVd0ha7virdjnMeP8qFH2BhiCX/QApv/1kZcw6ml9YJTBEDdukIYjOS9PwGdJiomzJXGUJOO/nNfiqS2bOo+XNNmkSXo5ZZj+lGtxeNkV+6a+Lx+6x+auyOPr7TaOhuAN4zhWTBHNeCOEl+/JSZMKfUDwg7MElpLBncWUIdduHfGtXGx2qyO0RZLGJKjYJ0PFeOSBgrfsKvoKAAD//2Xo/dQmAQAA"
         },
         "mode": 493
       }
@@ -77,12 +84,17 @@
         "name": "getty@tty1.service"
       },
       {
-        "contents": "[Unit]\nDescription=Encryption at rest\nBefore=systemd-user-sessions.service\nAfter=network-online.target\n\n[Service]\nType=exec\nEnvironment=CRYPT_KEY_URL='https://raw.githubusercontent.com/300481/datacrypt/fcos-0.2.0/README.md' CRYPT_CONTAINER_SIZE_PERCENTAGE='80'\nExecStart=/usr/local/bin/encryption-start.sh\nExecStop=/usr/local/bin/encryption-stop.sh\n\n[Install]\nWantedBy=multi-user.target\n",
+        "contents": "[Unit]\nDescription=Encryption at rest\nBefore=systemd-user-sessions.service\nAfter=network-online.target\n[Service]\nType=exec\nEnvironment=CRYPT_KEY_URL='https://raw.githubusercontent.com/300481/datacrypt/fcos-0.2.0/README.md' CRYPT_CONTAINER_SIZE_PERCENTAGE='80'\nExecStart=/usr/local/bin/encryption-start.sh\nExecStop=/usr/local/bin/encryption-stop.sh\n[Install]\nWantedBy=multi-user.target\n",
         "enabled": true,
         "name": "datacrypt.service"
       },
       {
-        "contents": "[Unit]\nAfter=network-online.target\nBefore=systemd-user-sessions.service\nConditionPathExists=!/var/lib/k3s-installed\n[Service]\nRemainAfterExit=yes\nType=oneshot\nExecStart=/usr/local/bin/run-k3s-installer\nExecStartPost=/usr/bin/touch /var/lib/k3s-installed\nStandardOutput=kmsg+console\nStandardError=kmsg+console\n[Install]\nWantedBy=multi-user.target\n",
+        "contents": "[Unit]\nAfter=network-online.target\nWants=network-online.target\nBefore=systemd-user-sessions.service\nOnFailure=emergency.target\nOnFailureJobMode=replace-irreversibly\nConditionPathExists=!/var/lib/k3s-selinux-installed\n[Service]\nRemainAfterExit=yes\nType=oneshot\nExecStart=/usr/local/bin/run-k3s-selinux-installer\nExecStartPost=/usr/bin/touch /var/lib/k3s-selinux-installed\nExecStartPost=/usr/bin/systemctl --no-block reboot\nStandardOutput=kmsg+console\nStandardError=kmsg+console\n[Install]\nWantedBy=multi-user.target\n",
+        "enabled": true,
+        "name": "run-k3s-selinux-installer.service"
+      },
+      {
+        "contents": "[Unit]\nAfter=network-online.target\nWants=network-online.target\nBefore=systemd-user-sessions.service\nOnFailure=emergency.target\nOnFailureJobMode=replace-irreversibly\nConditionPathExists=/var/lib/k3s-selinux-installed\nConditionPathExists=!/var/lib/k3s-installed\n[Service]\nRemainAfterExit=yes\nType=oneshot\nExecStart=/usr/local/bin/run-k3s-installer\nExecStartPost=/usr/bin/touch /var/lib/k3s-installed\nStandardOutput=kmsg+console\nStandardError=kmsg+console\n[Install]\nWantedBy=multi-user.target\n",
         "enabled": true,
         "name": "run-k3s-installer.service"
       }
