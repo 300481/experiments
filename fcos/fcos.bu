@@ -14,17 +14,60 @@ systemd:
         Description=Encryption at rest
         Before=systemd-user-sessions.service
         After=network-online.target
-
         [Service]
         Type=exec
         Environment=CRYPT_KEY_URL='https://raw.githubusercontent.com/300481/datacrypt/fcos-0.2.0/README.md' CRYPT_CONTAINER_SIZE_PERCENTAGE='80'
         ExecStart=/usr/local/bin/encryption-start.sh
         ExecStop=/usr/local/bin/encryption-stop.sh
-
+        [Install]
+        WantedBy=multi-user.target
+    - name: run-k3s-selinux-installer.service
+      enabled: true
+      contents: |
+        [Unit]
+        After=network-online.target
+        Wants=network-online.target
+        Before=systemd-user-sessions.service
+        OnFailure=emergency.target
+        OnFailureJobMode=replace-irreversibly
+        ConditionPathExists=!/var/lib/k3s-selinux-installed
+        [Service]
+        RemainAfterExit=yes
+        Type=oneshot
+        ExecStart=/usr/local/bin/run-k3s-selinux-installer
+        ExecStartPost=/usr/bin/touch /var/lib/k3s-selinux-installed
+        ExecStartPost=/usr/bin/systemctl --no-block reboot
+        StandardOutput=kmsg+console
+        StandardError=kmsg+console
+        [Install]
+        WantedBy=multi-user.target
+    - name: run-k3s-installer.service
+      enabled: true
+      contents: |
+        [Unit]
+        After=network-online.target
+        Wants=network-online.target
+        Before=systemd-user-sessions.service
+        OnFailure=emergency.target
+        OnFailureJobMode=replace-irreversibly
+        ConditionPathExists=/var/lib/k3s-selinux-installed
+        ConditionPathExists=!/var/lib/k3s-installed
+        [Service]
+        RemainAfterExit=yes
+        Type=oneshot
+        ExecStart=/usr/local/bin/run-k3s-installer
+        ExecStartPost=/usr/bin/touch /var/lib/k3s-installed
+        StandardOutput=kmsg+console
+        StandardError=kmsg+console
         [Install]
         WantedBy=multi-user.target
 storage:
   files:
+    - path: /etc/hostname
+      mode: 0644
+      contents:
+        inline: |
+          fcos
     - path: /etc/ssh/sshd_config.d/20-set-port.conf
       mode: 0644
       contents:
@@ -54,3 +97,18 @@ storage:
           days = [ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ]
           start_time = "01:00"
           length_minutes = 60
+    - path: /usr/local/bin/run-k3s-selinux-installer
+      mode: 0755
+      contents:
+        inline: |
+          #!/usr/bin/env sh
+          rpm-ostree install https://github.com/k3s-io/k3s-selinux/releases/download/v0.3.stable.0/k3s-selinux-0.3-0.el7.noarch.rpm
+    - path: /usr/local/bin/run-k3s-installer
+      mode: 0755
+      contents:
+        inline: |
+          #!/usr/bin/env sh
+          export INSTALL_K3S_EXEC=" --disable servicelb --disable traefik --disable metrics-server --default-local-storage-path /mnt/data --tls-san 192.168.100.251"
+          export INSTALL_K3S_VERSION="v1.21.1+k3s1"
+          export K3S_KUBECONFIG_MODE="644"
+          curl -sfL https://raw.githubusercontent.com/k3s-io/k3s/v1.21.1%2Bk3s1/install.sh | sh -

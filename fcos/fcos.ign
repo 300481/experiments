@@ -15,6 +15,13 @@
   "storage": {
     "files": [
       {
+        "path": "/etc/hostname",
+        "contents": {
+          "source": "data:,fcos%0A"
+        },
+        "mode": 420
+      },
+      {
         "path": "/etc/ssh/sshd_config.d/20-set-port.conf",
         "contents": {
           "source": "data:,Port%2055522%0A"
@@ -45,17 +52,42 @@
         "path": "/etc/zincati/config.d/55-updates-strategy.toml",
         "contents": {
           "compression": "gzip",
-          "source": "data:;base64,H4sIAAAAAAAC/2SOsQrCQAyG93uKI7PUc3EQugi6OSk4lKMcXmgDba5cc5T69JJCJ6ePJD/5/qZMMQjO3sySg2C32trChJlSpA+Y/V7tK2+ERmy/iVGTt5LThMcr5oEYTPOXrxbimBbvTQzrbGvbWHgkhoOFV0HFG+M29UVxz6R4BtlQGKx2C1laFavTnS7OgRmQO+nbkbgI6uez+wUAAP//GSxrNM4AAAA="
+          "source": "data:;base64,H4sIAAAAAAAC/2SOsQrCQAyG93uKI7PUc3EQugi6OSk4lKMcXmgDba5cc5T69JJCJ6ePJD/5/qZMMQjO3sySg2C32trChJlSpA+Y/V7tK2+ERmy/iVGTt5LThMcr5oEYTPOXrxbimBbvTQzrbGvbWHgkhoOFV0HFG+M29UVxz6R4BtlQGKx2C1laFavTnS7OgRmQO+nbkbgI6uezM78AAAD//3/FiFbPAAAA"
         }
+      },
+      {
+        "path": "/usr/local/bin/run-k3s-selinux-installer",
+        "contents": {
+          "source": "data:,%23!%2Fusr%2Fbin%2Fenv%20sh%0Arpm-ostree%20install%20https%3A%2F%2Fgithub.com%2Fk3s-io%2Fk3s-selinux%2Freleases%2Fdownload%2Fv0.3.stable.0%2Fk3s-selinux-0.3-0.el7.noarch.rpm%0A"
+        },
+        "mode": 493
+      },
+      {
+        "path": "/usr/local/bin/run-k3s-installer",
+        "contents": {
+          "compression": "gzip",
+          "source": "data:;base64,H4sIAAAAAAAC/2yOQU/6QBBH73yK+fcfT2Z22YJETTgIVkNASESNN7ItA92w7JKdafXghzdNTOTgaZI3L3m///90w0mXLmgKLXDdo89TTAKz5frlbrHYzAfrTfFeTMcZIG4d29ITMKXWVeTLMybJ0s4dzsiRJLmKsbMpdQ/a2cYL+lhZjywx2T3hyUoN+hhEb61YQBTPyDaAucmVGV0r0++r/Mpkf017K57Xs9VynLVG5UaZy8OAf83OmL9Oiulq+TB73Dyt7otxNhoOs17VJA/IuwXUIie+1TrZD7V3Ujdlw5SqGISCqCoe9WHA6GJ39E/lIp90He0Ci/VecQ1fwDVg7zsAAP//bwuEglABAAA="
+        },
+        "mode": 493
       }
     ]
   },
   "systemd": {
     "units": [
       {
-        "contents": "[Unit]\nDescription=Encryption at rest\nBefore=systemd-user-sessions.service\nAfter=network-online.target\n\n[Service]\nType=exec\nEnvironment=CRYPT_KEY_URL='https://raw.githubusercontent.com/300481/datacrypt/fcos-0.2.0/README.md' CRYPT_CONTAINER_SIZE_PERCENTAGE='80'\nExecStart=/usr/local/bin/encryption-start.sh\nExecStop=/usr/local/bin/encryption-stop.sh\n\n[Install]\nWantedBy=multi-user.target\n",
+        "contents": "[Unit]\nDescription=Encryption at rest\nBefore=systemd-user-sessions.service\nAfter=network-online.target\n[Service]\nType=exec\nEnvironment=CRYPT_KEY_URL='https://raw.githubusercontent.com/300481/datacrypt/fcos-0.2.0/README.md' CRYPT_CONTAINER_SIZE_PERCENTAGE='80'\nExecStart=/usr/local/bin/encryption-start.sh\nExecStop=/usr/local/bin/encryption-stop.sh\n[Install]\nWantedBy=multi-user.target\n",
         "enabled": true,
         "name": "datacrypt.service"
+      },
+      {
+        "contents": "[Unit]\nAfter=network-online.target\nWants=network-online.target\nBefore=systemd-user-sessions.service\nOnFailure=emergency.target\nOnFailureJobMode=replace-irreversibly\nConditionPathExists=!/var/lib/k3s-selinux-installed\n[Service]\nRemainAfterExit=yes\nType=oneshot\nExecStart=/usr/local/bin/run-k3s-selinux-installer\nExecStartPost=/usr/bin/touch /var/lib/k3s-selinux-installed\nExecStartPost=/usr/bin/systemctl --no-block reboot\nStandardOutput=kmsg+console\nStandardError=kmsg+console\n[Install]\nWantedBy=multi-user.target\n",
+        "enabled": true,
+        "name": "run-k3s-selinux-installer.service"
+      },
+      {
+        "contents": "[Unit]\nAfter=network-online.target\nWants=network-online.target\nBefore=systemd-user-sessions.service\nOnFailure=emergency.target\nOnFailureJobMode=replace-irreversibly\nConditionPathExists=/var/lib/k3s-selinux-installed\nConditionPathExists=!/var/lib/k3s-installed\n[Service]\nRemainAfterExit=yes\nType=oneshot\nExecStart=/usr/local/bin/run-k3s-installer\nExecStartPost=/usr/bin/touch /var/lib/k3s-installed\nStandardOutput=kmsg+console\nStandardError=kmsg+console\n[Install]\nWantedBy=multi-user.target\n",
+        "enabled": true,
+        "name": "run-k3s-installer.service"
       }
     ]
   }
