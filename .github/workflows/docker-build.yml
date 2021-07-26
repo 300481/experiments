@@ -24,4 +24,4 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Docker Build
-        run: docker build -t test:latest docker/Dockerfile
+        run: docker build -t test:latest ./docker/Dockerfile
