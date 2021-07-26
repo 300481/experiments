@@ -1,2 +1,2 @@
-FROM alpine:3.11.11
+FROM alpine:3.14.0
 RUN apk update
