@@ -40,7 +40,7 @@ do
   esac
 done
 
-[ -z "$REPO_URL" ] || [ -z "$CHART" ] || -v [ "$VERSION" ] || [ -a "$A_VALUES" ] || [ -b "$B_VALUES" ] && usage
+[ -z "$REPO_URL" ] || [ -z "$CHART" ] || -z [ "$VERSION" ] || [ -z "$A_VALUES" ] || [ -z "$B_VALUES" ] && usage
 
 export HELM_HOME=$(mktemp -d)
 
