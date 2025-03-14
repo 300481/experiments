@@ -13,3 +13,4 @@ spec:
       dnsManagementPolicy: Managed
       scope: External
     type: LoadBalancerService
+  replicas: 2
