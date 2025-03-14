@@ -1,0 +1,15 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: test
+  namespace: example
+spec:
+  path: /
+  to:
+    name: example
+    weight: 100
+    kind: Service
+  host: test.example.com
+  port:
+    targetPort: 8080
+  alternateBackends: []
