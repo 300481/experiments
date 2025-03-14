@@ -1,0 +1,15 @@
+apiVersion: operator.openshift.io/v1
+kind: IngressController
+metadata:
+  name: example
+  namespace: openshift-ingress-operator
+spec:
+  domain: example.com
+  namespaceSelector:
+    matchLabels:
+      name: example
+  endpointPublishingStrategy:
+    loadBalancer:
+      dnsManagementPolicy: Managed
+      scope: External
+    type: LoadBalancerService
