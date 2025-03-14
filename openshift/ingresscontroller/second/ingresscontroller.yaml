@@ -7,7 +7,7 @@ spec:
   domain: example.com
   namespaceSelector:
     matchLabels:
-      name: example
+      kubernetes.io/metadata.name: example
   endpointPublishingStrategy:
     loadBalancer:
       dnsManagementPolicy: Managed
