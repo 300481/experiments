@@ -2,6 +2,16 @@
 
 No warranty, it's all fun! ;-)
 
+This is done on the CRC Code Ready Containers / OpenShift Local.
+
+```bash
+user@host:~$ oc version
+Client Version: 4.17.14
+Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
+Server Version: 4.17.14
+Kubernetes Version: v1.30.7
+```
+
 ## 1. Install the MetalLB Operator
 
 ## 2. Apply the yaml files in this order
